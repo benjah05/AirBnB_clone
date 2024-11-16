@@ -16,8 +16,9 @@ class FileStorage:
 
     def new(self, obj):
         """Set obj with key <obj class name>.id"""
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        FileStorage.__objects[key] = obj
+        if obj:
+            key = f"{obj.__class__.__name__}.{obj.id}"
+            FileStorage.__objects[key] = obj
 
     def save(self):
         """Serialize __object to JSON file"""
@@ -34,4 +35,3 @@ class FileStorage:
                     class_descr = obj["__class__"]
                     del obj["__class__"]
                     self.new(eval(class_descr)(**obj))
-            return
