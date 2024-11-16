@@ -28,7 +28,7 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """Magic method for proper string representation"""
+        """The magic method for proper string representation"""
         return (f"[{__class__.__name__}] ({self.id}) {self.__dict__}")
 
     def save(self):
