@@ -145,7 +145,7 @@ class TestPlace_instantiation(unittest.TestCase):
 
 
 class TestPlace_save(unittest.TestCase):
-    """Unittests for testing save method of the Place class."""
+    """This unittests for testing save method of the Place class."""
 
     @classmethod
     def setUp(self):
@@ -196,7 +196,7 @@ class TestPlace_save(unittest.TestCase):
 
 
 class TestPlace_to_dict(unittest.TestCase):
-    """Unittests for testing to_dict method of the Place class."""
+    """The unittests for testing to_dict method of the Place class."""
 
     def test_to_dict_type(self):
         self.assertTrue(dict, type(Place().to_dict()))

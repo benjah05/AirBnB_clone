@@ -15,7 +15,7 @@ from models.city import City
 
 
 class TestCity_instantiation(unittest.TestCase):
-    """The unittests for testing instantiation of the City class."""
+    """Unittests for testing instantiation of the City class."""
 
     def test_no_args_instantiates(self):
         self.assertEqual(City, type(City()))
@@ -36,13 +36,13 @@ class TestCity_instantiation(unittest.TestCase):
         cy = City()
         self.assertEqual(str, type(City.state_id))
         self.assertIn("state_id", dir(cy))
-        self.assertNotIn("state_id", cy._dict_)
+        self.assertNotIn("state_id", cy.__dict__)
 
     def test_name_is_public_class_attribute(self):
         cy = City()
         self.assertEqual(str, type(City.name))
         self.assertIn("name", dir(cy))
-        self.assertNotIn("name", cy._dict_)
+        self.assertNotIn("name", cy.__dict__)
 
     def test_two_cities_unique_ids(self):
         cy1 = City()
@@ -67,7 +67,7 @@ class TestCity_instantiation(unittest.TestCase):
         cy = City()
         cy.id = "123456"
         cy.created_at = cy.updated_at = dt
-        cystr = cy._str_()
+        cystr = cy.__str__()
         self.assertIn("[City] (123456)", cystr)
         self.assertIn("'id': '123456'", cystr)
         self.assertIn("'created_at': " + dt_repr, cystr)
@@ -75,7 +75,7 @@ class TestCity_instantiation(unittest.TestCase):
 
     def test_args_unused(self):
         cy = City(None)
-        self.assertNotIn(None, cy._dict_.values())
+        self.assertNotIn(None, cy.__dict__.values())
 
     def test_instantiation_with_kwargs(self):
         dt = datetime.today()
@@ -91,7 +91,7 @@ class TestCity_instantiation(unittest.TestCase):
 
 
 class TestCity_save(unittest.TestCase):
-    """The unittests for testing save method of the City class."""
+    """Unittests for testing save method of the City class."""
 
     @classmethod
     def setUp(self):
@@ -142,7 +142,7 @@ class TestCity_save(unittest.TestCase):
 
 
 class TestCity_to_dict(unittest.TestCase):
-    """The unittests for testing to_dict method of the City class."""
+    """Unittests for testing to_dict method of the City class."""
 
     def test_to_dict_type(self):
         self.assertTrue(dict, type(City().to_dict()))
@@ -152,7 +152,7 @@ class TestCity_to_dict(unittest.TestCase):
         self.assertIn("id", cy.to_dict())
         self.assertIn("created_at", cy.to_dict())
         self.assertIn("updated_at", cy.to_dict())
-        self.assertIn("_class_", cy.to_dict())
+        self.assertIn("__class__", cy.to_dict())
 
     def test_to_dict_contains_added_attributes(self):
         cy = City()
@@ -175,7 +175,7 @@ class TestCity_to_dict(unittest.TestCase):
         cy.created_at = cy.updated_at = dt
         tdict = {
             'id': '123456',
-            '_class_': 'City',
+            '__class__': 'City',
             'created_at': dt.isoformat(),
             'updated_at': dt.isoformat(),
         }
@@ -183,7 +183,7 @@ class TestCity_to_dict(unittest.TestCase):
 
     def test_contrast_to_dict_dunder_dict(self):
         cy = City()
-        self.assertNotEqual(cy.to_dict(), cy._dict_)
+        self.assertNotEqual(cy.to_dict(), cy.__dict__)
 
     def test_to_dict_with_arg(self):
         cy = City()
