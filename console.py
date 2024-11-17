@@ -109,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             words = line.split(' ')
             if words[0] not in storage.classes():
-            print("** no instance found **")
+                print("** no instance found **")
         else:
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
