@@ -15,7 +15,7 @@ from models.amenity import Amenity
 
 
 class TestAmenity_instantiation(unittest.TestCase):
-    """Unittests for testing instantiation of the Amenity class."""
+    """This is unittests for testing instantiation of the Amenity class."""
 
     def test_no_args_instantiates(self):
         self.assertEqual(Amenity, type(Amenity()))
@@ -36,7 +36,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         am = Amenity()
         self.assertEqual(str, type(Amenity.name))
         self.assertIn("name", dir(Amenity()))
-        self.assertNotIn("name", am._dict_)
+        self.assertNotIn("name", am.__dict__)
 
     def test_two_amenities_unique_ids(self):
         am1 = Amenity()
@@ -61,7 +61,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         am = Amenity()
         am.id = "123456"
         am.created_at = am.updated_at = dt
-        amstr = am._str_()
+        amstr = am.__str__()
         self.assertIn("[Amenity] (123456)", amstr)
         self.assertIn("'id': '123456'", amstr)
         self.assertIn("'created_at': " + dt_repr, amstr)
@@ -69,7 +69,7 @@ class TestAmenity_instantiation(unittest.TestCase):
 
     def test_args_unused(self):
         am = Amenity(None)
-        self.assertNotIn(None, am._dict_.values())
+        self.assertNotIn(None, am.__dict__.values())
 
     def test_instantiation_with_kwargs(self):
         """instantiation with kwargs test method"""
@@ -86,7 +86,7 @@ class TestAmenity_instantiation(unittest.TestCase):
 
 
 class TestAmenity_save(unittest.TestCase):
-    """Unittests for testing save method of the Amenity class."""
+    """This is unittests for testing save method of the Amenity class."""
 
     @classmethod
     def setUp(self):
@@ -147,7 +147,7 @@ class TestAmenity_to_dict(unittest.TestCase):
         self.assertIn("id", am.to_dict())
         self.assertIn("created_at", am.to_dict())
         self.assertIn("updated_at", am.to_dict())
-        self.assertIn("_class_", am.to_dict())
+        self.assertIn("__class__", am.to_dict())
 
     def test_to_dict_contains_added_attributes(self):
         am = Amenity()
@@ -170,7 +170,7 @@ class TestAmenity_to_dict(unittest.TestCase):
         am.created_at = am.updated_at = dt
         tdict = {
             'id': '123456',
-            '_class_': 'Amenity',
+            '__class__': 'Amenity',
             'created_at': dt.isoformat(),
             'updated_at': dt.isoformat(),
         }
@@ -178,7 +178,7 @@ class TestAmenity_to_dict(unittest.TestCase):
 
     def test_contrast_to_dict_dunder_dict(self):
         am = Amenity()
-        self.assertNotEqual(am.to_dict(), am._dict_)
+        self.assertNotEqual(am.to_dict(), am.__dict__)
 
     def test_to_dict_with_arg(self):
         am = Amenity()
@@ -186,5 +186,5 @@ class TestAmenity_to_dict(unittest.TestCase):
             am.to_dict(None)
 
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     unittest.main()
